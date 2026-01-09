@@ -27,12 +27,12 @@ class Bok:
         return f"Boken {self.titel}, skriven av {self.författare}."
 
     # Läser en rad i textfilen och returnerar en bok
-    def bok_från_fil_sträng(sträng):
+    def bokFrånFilSträng(sträng):
         sträng_delar = sträng.split(",")
         return Bok(sträng_delar[1],sträng_delar[0],sträng_delar[2], bool(int(sträng_delar[3])))
     
     # Returnerar en sträng som ska skrivas till fil för boken
-    def bok_till_fil_sträng(self):
+    def bokTillFilSträng(self):
         return f"{self.titel},{self.författare},{self.årtal},{int(self.utlånad)}"
         
         
@@ -42,7 +42,7 @@ class Bibliotek:
     ur klassen har en lista över böcker som attribut, samt metoder för att
     modifiera katalogen. """
     def __init__(self, bokLista):
-        self.böcker = bokLista
+        self.böcker:list = bokLista
     
     # Öppnar en fil til biblioteket
     def öppna(self, filename):
@@ -56,7 +56,7 @@ class Bibliotek:
         # För varje rad i filen läs in den som en bok till boklistan
         for rad in rader:
             rad.strip()
-            boklista.append(Bok.bok_från_fil_sträng(rad))
+            boklista.append(Bok.bokFrånFilSträng(rad))
         
         # Sätt bibliotekets böcker till boklistan
         self.böcker = boklista
@@ -69,39 +69,45 @@ class Bibliotek:
 
         # Lägg till en sträng för alla böcker i listan av rader
         for bok in self.böcker:
-            rader.append(bok.bok_till_fil_sträng())
+            rader.append(bok.bokTillFilSträng())
 
         # Skriv raderna till filen
         with open(filename,"w") as fil:
             fil.writelines(rader)
 
-    # Söker på en titel.
+    # Söker på en titel. Returnerar bokens index
     def hittaTitel(self, titel):
         return 
 
-    # Söker på en författare.
+    # Söker på en författare. Returnerar bokens index
     def hittaFörfattare(self, författare):
         return
 
     # Lånar en bok.
-    def lånaBok(self, bok):
-        return
+    def lånaBok(self, bok_index):
+        self.böcker[bok_index].utlånad = True
 
     # Återlämnar en bok.
-    def lämnaTillbaka(self, bok):
-        return
+    def lämnaTillbaka(self, bok_index):
+        self.böcker[bok_index].utlånad = False
 
     # Lägger till en ny bok:
     def läggTill(self, bok):
-        return
+        self.böcker.append(bok)
 
     # Tar bort en bok:
     def taBort(self, bok):
-        return
+        self.böcker.remove(bok)
 
     # Returnerar en lista över alla böcker:
     def listaBöcker(self):
         return
+    
+    # Sorterar listan med böcker efter en nyckel
+    def sorteraBöcker(self,nyckel):
+        pass
+
+# ------------------------- Användarfunktioner -----------------------------#
 
 # Söker ett bibliotek efter en titel 
 def sök_efter_titel(bibliotek):
