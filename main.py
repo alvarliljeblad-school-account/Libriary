@@ -16,9 +16,10 @@ class Bok:
     """ Bok är en klass som representerar en bok i biblioteket. Varje objekt
     som skapas ur klassen har en titel, författare och en variabel som håller
     reda på om boken är utlånad eller inte. """
-    def __init__(self, författare, titel, utlånad = False):
+    def __init__(self, författare, titel, årtal, utlånad = False):
         self.titel = titel
         self.författare = författare
+        self.årtal = årtal
         self.utlånad = utlånad
 
     # Strängrepresentation av objektet.
@@ -28,11 +29,11 @@ class Bok:
     # Läser en rad i textfilen och returnerar en bok
     def bok_från_fil_sträng(sträng):
         sträng_delar = sträng.split(",")
-        return Bok(sträng_delar[1],sträng_delar[0], bool(int(sträng_delar[2])))
+        return Bok(sträng_delar[1],sträng_delar[0],sträng_delar[2], bool(int(sträng_delar[3])))
     
     # Returnerar en sträng som ska skrivas till fil för boken
     def bok_till_fil_sträng(self):
-        return f"{self.titel},{self.författare},{int(self.utlånad)}"
+        return f"{self.titel},{self.författare},{self.årtal},{int(self.utlånad)}"
         
         
 
@@ -101,6 +102,40 @@ class Bibliotek:
     # Returnerar en lista över alla böcker:
     def listaBöcker(self):
         return
+
+# Söker ett bibliotek efter en titel 
+def sök_efter_titel(bibliotek):
+    pass
+
+# Söker ett bibliotek efter författare
+def sök_efter_författare(bibliotek):
+    pass
+
+# Låna en bok i ett bibliotek
+def låna_bok(bibliotek):
+    pass
+
+# Lämna tillbaks en utånad bok
+def återlämna_bok(bibliotek):
+    pass
+
+# Lägger till en ny bok i ett bibliotek
+def lägg_till_bok(bibliotek):
+    pass
+
+# Tar bort en bok ut ett bibliotek
+def ta_bort_bok(bibliotek):
+    pass
+
+# Listar alla böcker i ett bibliotek
+def lista_böcker(bibliotek):
+    pass
+
+# Sorterar böckerna i ett bibliotek
+def sortera_böcker(bibliotek):
+    pass 
+
+
 
 # ------------------------------ Huvudprogram --------------------------------- #
 def main():
