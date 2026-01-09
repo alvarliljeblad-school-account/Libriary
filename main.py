@@ -77,11 +77,15 @@ class Bibliotek:
 
     # Söker på en titel. Returnerar bokens index
     def hittaTitel(self, titel):
-        return 
+        for i, bok in enumerate(self.böcker):
+            if bok.titel == titel:
+                return i
 
     # Söker på en författare. Returnerar bokens index
     def hittaFörfattare(self, författare):
-        return
+        for i, bok in enumerate(self.böcker):
+            if bok.författare == författare:
+                return i
 
     # Lånar en bok.
     def lånaBok(self, bok_index):
@@ -101,11 +105,16 @@ class Bibliotek:
 
     # Returnerar en lista över alla böcker:
     def listaBöcker(self):
-        return
+        return self.böcker
     
     # Sorterar listan med böcker efter en nyckel
     def sorteraBöcker(self,nyckel):
-        pass
+        if nyckel == "årtal":
+            self.böcker.sort(key=lambda bok: bok.årtal)
+        elif nyckel == "titel":
+            self.böcker.sort(key=lambda bok: bok.titel)
+        elif nyckel == "författare":
+            self.böcker.sort(key=lambda bok: bok.författare)
 
 # ------------------------- Användarfunktioner -----------------------------#
 
@@ -127,7 +136,14 @@ def återlämna_bok(bibliotek):
 
 # Lägger till en ny bok i ett bibliotek
 def lägg_till_bok(bibliotek):
-    pass
+    print("Vad är bokens titel?")
+    titel = input("->")
+    print("Vem är bokens författare?")
+    författare = input("->")
+    print("Vilket år publicerades boken?")
+    årtal = input("->")
+    ny_bok = Bok(författare,titel,årtal)
+    bibliotek.läggTill(ny_bok)
 
 # Tar bort en bok ut ett bibliotek
 def ta_bort_bok(bibliotek):
