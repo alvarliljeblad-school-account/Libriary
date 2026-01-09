@@ -26,7 +26,7 @@ class Bok:
         return f"Boken {self.titel}, skriven av {self.författare}."
 
     # Läser en rad i textfilen och returnerar en bok
-    def bok_från_sträng(sträng):
+    def bok_från_fil_sträng(sträng):
         sträng_delar = sträng.split(",")
         return Bok(sträng_delar[1],sträng_delar[0], bool(int(sträng_delar[2])))
     
@@ -45,17 +45,34 @@ class Bibliotek:
     
     # Öppnar en fil til biblioteket
     def öppna(self, filename):
-        return
+        #Läs filen till en lista med rader
+        with open(filename, "r")as fil:
+            rader = fil.readlines()
+        
+        # Skapa en boklista
+        boklista = []
+
+        # För varje rad i filen läs in den som en bok till boklistan
+        for rad in rader:
+            rad.strip()
+            boklista.append(Bok.bok_från_fil_sträng(rad))
+        
+        # Sätt bibliotekets böcker till boklistan
+        self.böcker = boklista
+
 
     # Sparar hela bibliotekskatalogen i en fil.
     def spara(self, filename):
+        # Skapa en lista för alla rader i filen
         rader = []
+
+        # Lägg till en sträng för alla böcker i listan av rader
         for bok in self.böcker:
-            rader.append()
+            rader.append(bok.bok_till_fil_sträng())
 
-
+        # Skriv raderna till filen
         with open(filename,"w") as fil:
-            fil.writelines()
+            fil.writelines(rader)
 
     # Söker på en titel.
     def hittaTitel(self, titel):
@@ -87,6 +104,11 @@ class Bibliotek:
 
 # ------------------------------ Huvudprogram --------------------------------- #
 def main():
+    biblioteket = Bibliotek([])
+    biblioteket.öppna("bibliotek.txt")
+
+
+
     menyVal = ""
 
     while menyVal != "q":
