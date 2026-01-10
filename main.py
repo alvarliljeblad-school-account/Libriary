@@ -145,6 +145,7 @@ def sök_efter_titel(bibliotek):
                 print(f"Du har lånat {bok}")
     else:
         print("Det finns ingen bok med den titeln på det här biblioteket")
+    input("Tryck enter för att fortsätta")
         
 
 # Söker ett bibliotek efter författare
@@ -158,11 +159,28 @@ def sök_efter_författare(bibliotek):
         print(f"Just nu har biblioteket följande böcker av {inp}")
         for bok in böcker:
             print(f"  -{bok}")
+    input("Tryck enter för att fortsätta")
 
 
 # Låna en bok i ett bibliotek
 def låna_bok(bibliotek):
-    pass
+    print("Vilken bok vill du låna?")
+    inp = input("->")
+    bok_index, bok = bibliotek.hittaTitel(inp)
+    if bok != None:
+        if bok.utlånad:
+            print(f"{bok} är för nuvarande utlånad")
+        else: 
+            print(f"{bok} finns inne, vill då låna den?(y/n)")
+            inp = ""
+            while inp not in ["y","n"]:
+                inp = input("->").lower()
+            if inp == "y":
+                bibliotek.lånaBok(bok_index)
+                print(f"Du har lånat {bok}")
+    else:
+        print("Det finns ingen bok med den titeln på det här biblioteket")
+    input("Tryck enter för att fortsätta")
 
 # Lämna tillbaks en utånad bok
 def återlämna_bok(bibliotek):
@@ -186,6 +204,8 @@ def lägg_till_bok(bibliotek):
             break
     ny_bok = Bok(författare,titel,årtal)
     bibliotek.läggTill(ny_bok)
+    print(f"{ny_bok} har lagts till i biblioteket")
+    input("Tryck enter för att fortsätta")
 
 # Tar bort en bok ut ett bibliotek
 def ta_bort_bok(bibliotek):
