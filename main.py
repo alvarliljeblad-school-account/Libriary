@@ -262,7 +262,18 @@ def lista_böcker(bibliotek):
 
 # Sorterar böckerna i ett bibliotek
 def sortera_böcker(bibliotek):
-    pass 
+    print("Vill du sortera efter Titel(T), Författare(F) eller Årtal(Å)")
+    inp = ""
+    while inp not in ["t","f","å"]:
+        inp = input("->")
+    if inp == "t":
+        bibliotek.sorteraBöcker("titel")
+    elif inp == "f":
+        bibliotek.sorteraBöcker("författare")
+    elif inp == "å":
+        bibliotek.sorteraBöcker("årtal")
+    print("Biblioteket har sorterats")
+    input("Tryck enter för att fortsätta")
 
 
 
@@ -308,7 +319,7 @@ def main():
         elif menyVal == "7":
             lista_böcker(biblioteket)
         elif menyVal == "8":
-            pass
+            sortera_böcker(biblioteket)
     
     # När programmet är slut spara till filen
     biblioteket.spara("bibliotek.txt")
