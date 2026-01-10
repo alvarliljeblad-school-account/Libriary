@@ -130,7 +130,18 @@ class Bibliotek:
 def sök_efter_titel(bibliotek):
     print("VIlken bok söker du efter?")
     inp = input("->")
-    bibliotek.hittaTitel(inp)
+    bok_index, bok = bibliotek.hittaTitel(inp)
+    if bok.utlånad:
+        print(f"{bok} är för nuvarande utlånad")
+    else: 
+        print(f"{bok} finns inne, vill då låna den(y/n)")
+        inp = ""
+        while inp not in ["y","n"]:
+            inp = input("->").lower()
+        if inp == "y":
+            bibliotek.lånaBok(bok_index)
+            print(f"Du har lånat {bok}")
+        
 
 # Söker ett bibliotek efter författare
 def sök_efter_författare(bibliotek):
@@ -212,7 +223,7 @@ def main():
         menyVal = input("-> ")
 
         if menyVal == "1":
-            pass
+            sök_efter_titel(biblioteket)
         elif menyVal == "2":
             pass
         elif menyVal == "3":
