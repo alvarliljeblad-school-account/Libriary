@@ -22,7 +22,7 @@ class Bok:
 
     # Strängrepresentation av objektet.
     def __str__(self):
-        return f"Boken {self.titel}, skriven av {self.författare}."
+        return f"{self.titel}, av {self.författare}."
 
     # Läser en rad i textfilen och returnerar en bok
     def bokFrånFilSträng(sträng):
@@ -219,6 +219,10 @@ def main():
             lista_böcker(biblioteket)
         elif menyVal == "8":
             pass
+    
+    # När programmet är slut spara till filen
+    biblioteket.spara("bibliotek.txt")
+
 
 print(
 """
