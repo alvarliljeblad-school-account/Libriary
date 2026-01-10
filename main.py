@@ -7,8 +7,6 @@ Datum:
 Det här är ett program för hantering av enklare biblioteksrutiner.
 Programmet lagrar böckerna i en fil med namnet "bibliotek.txt" mellan körningarna.
 """
-# ------------------------- Biblioteksimportering ----------------------------- #
-import random as rand
 
 # ---------------------------- Klassdefinitioner ------------------------------ #
 
@@ -29,7 +27,7 @@ class Bok:
     # Läser en rad i textfilen och returnerar en bok
     def bokFrånFilSträng(sträng):
         sträng_delar = sträng.split(",")
-        return Bok(sträng_delar[1],sträng_delar[0],sträng_delar[2], bool(int(sträng_delar[3])))
+        return Bok(sträng_delar[1],sträng_delar[0],int(sträng_delar[2]), bool(int(sträng_delar[3])))
     
     # Returnerar en sträng som ska skrivas till fil för boken
     def bokTillFilSträng(self):
@@ -79,13 +77,15 @@ class Bibliotek:
     def hittaTitel(self, titel):
         for i, bok in enumerate(self.böcker):
             if bok.titel == titel:
-                return i
+                return i, bok
 
     # Söker på en författare. Returnerar bokens index
     def hittaFörfattare(self, författare):
-        for i, bok in enumerate(self.böcker):
+        böcker_av_författaren = []
+        for bok in enumerate(self.böcker):
             if bok.författare == författare:
-                return i
+                böcker_av_författaren.append(bok)
+        return böcker_av_författaren
 
     # Lånar en bok.
     def lånaBok(self, bok_index):
@@ -100,8 +100,8 @@ class Bibliotek:
         self.böcker.append(bok)
 
     # Tar bort en bok:
-    def taBort(self, bok):
-        self.böcker.remove(bok)
+    def taBort(self, bok_index):
+        self.böcker.pop(bok_index)
 
     # Returnerar en lista över alla böcker:
     def listaBöcker(self):
@@ -120,7 +120,9 @@ class Bibliotek:
 
 # Söker ett bibliotek efter en titel 
 def sök_efter_titel(bibliotek):
-    pass
+    print("VIlken bok söker du efter?")
+    inp = input("->")
+    bibliotek.hittaTitel(inp)
 
 # Söker ett bibliotek efter författare
 def sök_efter_författare(bibliotek):
@@ -141,7 +143,15 @@ def lägg_till_bok(bibliotek):
     print("Vem är bokens författare?")
     författare = input("->")
     print("Vilket år publicerades boken?")
-    årtal = input("->")
+    # Om ett en inkorekt årtal skrivs in fråga igen tills ett korrekt årtal skrivs in
+    while True:
+        årtal = input("->")
+        try:
+            årtal = int(årtal)
+        except:
+            print("Skriv in ett korekt årtal")
+        else:
+            break
     ny_bok = Bok(författare,titel,årtal)
     bibliotek.läggTill(ny_bok)
 
@@ -151,7 +161,14 @@ def ta_bort_bok(bibliotek):
 
 # Listar alla böcker i ett bibliotek
 def lista_böcker(bibliotek):
-    pass
+    böcker = bibliotek.listaBöcker()
+    if len(böcker) == 0:
+        print("Tyvär är biblioteket tomt för nuvarande, kom tillbaka snart")
+    else:
+        print("Biblioteket inehåller följande böcker")
+        for bok in böcker:
+            print(f"  -{bok}")
+    input("Tryck enter för att fortsätta")
 
 # Sorterar böckerna i ett bibliotek
 def sortera_böcker(bibliotek):
@@ -177,9 +194,9 @@ def main():
 
             1. Sök efter titel                                  2. Sök efter författare
             3. Låna bok                                         4. Återlämna bok
-            4. Lägg till ny bok                                 5. Ta bort bok
-            6. Ta bort bok                                      7. Lista alla böcker
-            8. Sortera böcker                                   q. Avsluta
+            5. Lägg till ny bok                                 6. Ta bort bok
+            7. Lista alla böcker                                8. Sortera böcker
+            q. Avsluta
 
         ---------------------------------------------------------------------------------------
         """)
@@ -195,11 +212,11 @@ def main():
         elif menyVal == "4":
             pass
         elif menyVal == "5":
-            pass
+            lägg_till_bok(biblioteket)
         elif menyVal == "6":
             pass
         elif menyVal == "7":
-            pass
+            lista_böcker(biblioteket)
         elif menyVal == "8":
             pass
 
