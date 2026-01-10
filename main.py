@@ -86,6 +86,7 @@ class Bibliotek:
         for i, bok in enumerate(self.böcker):
             if bok.titel == titel:
                 return i, bok
+        return 0, None
 
     # Söker på en författare. Returnerar bokens index
     def hittaFörfattare(self, författare):
@@ -128,24 +129,36 @@ class Bibliotek:
 
 # Söker ett bibliotek efter en titel 
 def sök_efter_titel(bibliotek):
-    print("VIlken bok söker du efter?")
+    print("Vilken bok söker du efter?")
     inp = input("->")
     bok_index, bok = bibliotek.hittaTitel(inp)
-    if bok.utlånad:
-        print(f"{bok} är för nuvarande utlånad")
-    else: 
-        print(f"{bok} finns inne, vill då låna den(y/n)")
-        inp = ""
-        while inp not in ["y","n"]:
-            inp = input("->").lower()
-        if inp == "y":
-            bibliotek.lånaBok(bok_index)
-            print(f"Du har lånat {bok}")
+    if bok != None:
+        if bok.utlånad:
+            print(f"{bok} är för nuvarande utlånad")
+        else: 
+            print(f"{bok} finns inne, vill då låna den?(y/n)")
+            inp = ""
+            while inp not in ["y","n"]:
+                inp = input("->").lower()
+            if inp == "y":
+                bibliotek.lånaBok(bok_index)
+                print(f"Du har lånat {bok}")
+    else:
+        print("Det finns ingen bok med den titeln på det här biblioteket")
         
 
 # Söker ett bibliotek efter författare
 def sök_efter_författare(bibliotek):
-    pass
+    print("Vilken författares böcker söker du efter?")
+    inp = input("->")
+    böcker = bibliotek.hittaFörfattare(inp)
+    if len(böcker) == 0:
+        print(f"Biblioteket har inga böcker som är skrivna av {inp}")
+    else:
+        print(f"Just nu har biblioteket följande böcker av {inp}")
+        for bok in böcker:
+            print(f"  -{bok}")
+
 
 # Låna en bok i ett bibliotek
 def låna_bok(bibliotek):
@@ -225,7 +238,7 @@ def main():
         if menyVal == "1":
             sök_efter_titel(biblioteket)
         elif menyVal == "2":
-            pass
+            sök_efter_författare(biblioteket)
         elif menyVal == "3":
             pass
         elif menyVal == "4":
