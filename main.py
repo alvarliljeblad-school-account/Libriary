@@ -260,7 +260,7 @@ def main():
         elif menyVal == "2":
             sök_efter_författare(biblioteket)
         elif menyVal == "3":
-            pass
+            låna_bok(biblioteket)
         elif menyVal == "4":
             pass
         elif menyVal == "5":
