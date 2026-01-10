@@ -143,6 +143,8 @@ def sök_efter_titel(bibliotek):
             if inp == "y":
                 bibliotek.lånaBok(bok_index)
                 print(f"Du har lånat {bok}")
+            else:
+                print("Du lånade inte boken")            
     else:
         print("Det finns ingen bok med den titeln på det här biblioteket")
     input("Tryck enter för att fortsätta")
@@ -179,6 +181,8 @@ def låna_bok(bibliotek):
             if inp == "y":
                 bibliotek.lånaBok(bok_index)
                 print(f"Du har lånat {bok}")
+            else:
+                print("Du lånade inte boken")            
     else:
         print("Det finns ingen bok med den titeln på det här biblioteket")
     input("Tryck enter för att fortsätta")
@@ -200,6 +204,8 @@ def återlämna_bok(bibliotek):
             if inp == "y":
                 bibliotek.lämnaTillbaka(bok_index)
                 print(f"Du har lånat {bok}")
+            else:
+                print("Du lämnade inte tillbaka boken")
     else:
         print("Det finns ingen bok med den titeln på det här biblioteket")
     input("Tryck enter för att fortsätta")
@@ -227,7 +233,21 @@ def lägg_till_bok(bibliotek):
 
 # Tar bort en bok ut ett bibliotek
 def ta_bort_bok(bibliotek):
-    pass
+    print("Vilken bok vill du ta bort?")
+    print("Ange titeln")
+    inp = input("->")
+    bok_index, bok = bibliotek.hittaTitel(inp)
+    if bok != None:
+        print("Är du säker att du vill ta bort boken?(y/n)")
+        inp = ""
+        while inp not in ["y","n"]:
+            inp = input("->").lower()
+        if inp == "y":
+            bibliotek.lämnaTillbaka(bok_index)
+            print(f"Du har lånat {bok}")
+    else:
+        print("Det finns ingen bok med den titeln på det här biblioteket")
+    input("Tryck enter för att fortsätta")
 
 # Listar alla böcker i ett bibliotek
 def lista_böcker(bibliotek):
@@ -280,11 +300,11 @@ def main():
         elif menyVal == "3":
             låna_bok(biblioteket)
         elif menyVal == "4":
-            pass
+            återlämna_bok(biblioteket)
         elif menyVal == "5":
             lägg_till_bok(biblioteket)
         elif menyVal == "6":
-            pass
+            ta_bort_bok(biblioteket)
         elif menyVal == "7":
             lista_böcker(biblioteket)
         elif menyVal == "8":
