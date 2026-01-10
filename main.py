@@ -44,9 +44,17 @@ class Bibliotek:
     
     # Öppnar en fil til biblioteket
     def öppna(self, filename):
-        #Läs filen till en lista med rader
-        with open(filename, "r")as fil:
-            rader = fil.readlines()
+        #Läs filen till en lista med rader 
+        # Om filen inte finns, skapa den
+        try:
+            with open(filename, "r")as fil:
+                rader = fil.readlines()
+        except:
+            with open(filename, "x") as fil:
+                pass
+            with open(filename, "r")as fil:
+                rader = fil.readlines()
+
         
         # Skapa en boklista
         boklista = []
