@@ -19,7 +19,6 @@ class Bibliotek:
             with open(filename, "r")as fil:
                 rader = fil.readlines()
 
-        
         # Skapa en boklista
         boklista = []
 
@@ -30,7 +29,6 @@ class Bibliotek:
         
         # Sätt bibliotekets böcker till boklistan
         self.böcker = boklista
-
 
     # Sparar hela bibliotekskatalogen i en fil.
     def spara(self, filename):
@@ -45,14 +43,14 @@ class Bibliotek:
         with open(filename,"w") as fil:
             fil.writelines(rader)
 
-    # Söker på en titel. Returnerar bokens index
+    # Söker på en titel. Returnerar bokens index och boken
     def hittaTitel(self, titel):
         for i, bok in enumerate(self.böcker):
             if bok.titel == titel:
                 return i, bok
         return 0, None
 
-    # Söker på en författare. Returnerar bokens index
+    # Söker på en författare. Returnerar böcker av författaren
     def hittaFörfattare(self, författare):
         böcker_av_författaren = []
         for bok in enumerate(self.böcker):
