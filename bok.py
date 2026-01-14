@@ -19,6 +19,6 @@ class Bok:
     
     # Returnerar en sträng som ska skrivas till fil för boken
     def bokTillFilSträng(self):
-        return f"{self.titel},{self.författare},{self.årtal},{int(self.utlånad)}"
+        return f"{self.titel},{self.författare},{self.årtal},{int(self.utlånad)}\n"
         
         
