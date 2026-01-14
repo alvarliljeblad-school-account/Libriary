@@ -46,7 +46,7 @@ class Bibliotek:
     # Söker på en titel. Returnerar bokens index och boken
     def hittaTitel(self, titel):
         for i, bok in enumerate(self.böcker):
-            if bok.titel == titel:
+            if bok.titel.lower() == titel.lower():
                 return i, bok
         return 0, None
 
@@ -54,7 +54,7 @@ class Bibliotek:
     def hittaFörfattare(self, författare):
         böcker_av_författaren = []
         for bok in enumerate(self.böcker):
-            if bok.författare == författare:
+            if bok.författare.lower() == författare.lower():
                 böcker_av_författaren.append(bok)
         return böcker_av_författaren
 
