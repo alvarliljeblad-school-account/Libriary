@@ -1,8 +1,8 @@
 # ------------------------------- Information --------------------------------- #
 """
 Titel: Biblioteket
-Författare:
-Datum:
+Författare: Alvar Liljeblad
+Datum: 2026-01-14
 
 Det här är ett program för hantering av enklare biblioteksrutiner.
 Programmet lagrar böckerna i en fil med namnet "bibliotek.txt" mellan körningarna.
