@@ -10,7 +10,7 @@ class Bok:
 
     # Strängrepresentation av objektet.
     def __str__(self):
-        return f"{self.titel}, av {self.författare}."
+        return f"{self.titel} av {self.författare}."
 
     # Läser en rad i textfilen och returnerar en bok
     def bokFrånFilSträng(sträng):

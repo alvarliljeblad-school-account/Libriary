@@ -67,7 +67,7 @@ def återlämna_bok(bibliotek):
     bok_index, bok = bibliotek.hittaTitel(inp)
     if bok != None:
         if not bok.utlånad:
-            print(f"{bok} är finn junt nu inne på biblioteket")
+            print(f"{bok} är finns just nu inne på biblioteket")
         else: 
             print(f"{bok} är utlånad, vill då lämna tillbaka den?(y/n)")
             inp = ""
